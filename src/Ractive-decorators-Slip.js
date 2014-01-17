@@ -62,15 +62,41 @@
 	errorMessage = 'The Slip decorator only works with elements that correspond to array members';
 
 	Ractive.decorators.Slip = function ( node ) {
-		var slip, ractive;
+		var slip;
 
 		slip = new Slip( node );
 
-		node.addEventListener( 'slip:reorder', reorder, false );
+		node.addEventListener( 'slip:reorder', extractRactiveArray( reorder ), false );
+		node.addEventListener( 'slip:swipe', extractRactiveArray( swipe ), false );
 		
-		function reorder( e ) {
-			var storage = e.target._ractive, lastDotIndex, sourceKeypath, sourceArray, sourceIndex;
-			var array, source;
+		function reorder( e, ractive, keypath, index ) {
+			var array = ractive.get( keypath ), source;
+
+			// remove source from array
+			source = array.splice( index, 1 )[0];
+			// add source back to array in new location
+			array.splice( e.detail.spliceIndex, 0, source );
+		}
+
+		function swipe( e, ractive, keypath, index ) {
+			var array = ractive.get( keypath );
+
+			// Remove item from array.
+			array.splice( index, 1 );
+		}
+
+		return {
+			teardown: function () {
+				slip.detach();
+				node.removeEventListener( 'slip:reorder', reorder, false );
+				node.removeEventListener( 'slip:swipe', swipe, false );
+			}
+		};
+	};
+
+	function extractRactiveArray( fun ) {
+		return function ( e ) {
+			var storage = e.target._ractive, lastDotIndex, sourceKeypath, sourceArray, sourceIndex, ractive;
 
 			sourceKeypath = storage.keypath;
 
@@ -86,20 +112,8 @@
 
 			ractive = storage.root;
 
-			array = ractive.get( sourceArray );
-
-			// remove source from array
-			source = array.splice( sourceIndex, 1 )[0];
-			// add source back to array in new location
-			array.splice( e.detail.spliceIndex, 0, source );
-		}
-
-		return {
-			teardown: function () {
-				slip.detach();
-				node.removeEventListener( 'slip:reorder', reorder, false );
-			}
+			fun.call( this, e, ractive, sourceArray, sourceIndex );
 		};
-	};
+	}
 
 }));
