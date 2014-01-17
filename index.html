@@ -8,9 +8,44 @@
 	<link href='http://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
 	<link rel='stylesheet' href='demo/main.css'>
 
-	<!-- TODO add styles specific to this demo -->
 	<style type='text/css'>
+		.columns {
+			display: flex;
+			width: 100%;
+		}
 
+		.column {
+			flex: 1 1 50%;
+			padding: 5px;
+		}
+
+		.list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.list li {
+			position: relative;
+			padding: 0.5em 1.0em;
+			background-color: #eee;
+			margin: 0 0 0.2em 0;
+			line-height: 1;
+			background: 0.2em 50% no-repeat;
+			background-size: auto 80%;
+			border: 1px solid #eee;
+			border-radius: 0.2em;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		.reorderable li {
+			cursor: -webkit-grab;
+			cursor: -moz-grab;
+			cursor: grab;
+			background-color: #eee;
+		}
 	</style>
 </head>
 
@@ -43,20 +78,42 @@
 
 	<!-- Demo template -->
 	<script id='demo-template' type='text/ractive'>
-		<!-- TODO -->
-		<p>This is a demo of the plugin</p>
+		<div class='columns'>
+			<div class='column'>
+				<h2>Reorder this list (touch and hold)...</h2>
+				<ul decorator='Slip' class='reorderable list'>
+					{{#items}}
+						<li>{{.}}</li>
+					{{/items}}
+				</ul>
+			</div>
+			<div class='column'>
+				<h2>...it mirrors automatically</h2>
+				<ul class='list'>
+					{{#items}}
+						<li>{{.}}</li>
+					{{/items}}
+				</ul>
+			</div>
+		</div>
 	</script>
 
 	<!-- Dependencies -->
 	<script src='lib/Ractive.js'></script>
+	<script src='lib/slip.js'></script>
 	<script src='Ractive-decorators-Slip.js'></script>
 
 	<!-- Demo code -->
 	<script id='demo-code'>
-		// TODO
 		ractive = new Ractive({
 			el: 'demo',
-			template: '#demo-template'
+			template: '#demo-template',
+			data: {
+				items: [
+					'Hello',
+					'World',
+				]
+			}
 		});
 	</script>
 
