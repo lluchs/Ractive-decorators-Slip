@@ -1,0 +1,12 @@
+{
+	"name": "ractive-decorators-Slip",
+	"version": "0.1.0",
+	"author": "Luchs",
+	"main": "Ractive-decorators-Slip.js",
+	"ignore": [
+		"**/.*",
+		"src",
+		"test",
+		"Gruntfile.js"
+	]
+}
