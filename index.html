@@ -103,6 +103,12 @@
 				</ul>
 			</div>
 		</div>
+
+		<h2>Add an item:</h2>
+		<form on-submit='add'>
+			<input type='text' value='{{new}}' required>
+			<input type='submit' value='Add'>
+		</form>
 	</script>
 
 	<!-- Dependencies -->
@@ -121,6 +127,12 @@
 					'World',
 				]
 			}
+		});
+
+		ractive.on( 'add', function (e) {
+			ractive.get( 'items' ).push( ractive.get( 'new' ) );
+			ractive.set( 'new', '' );
+			e.original.preventDefault();
 		});
 	</script>
 
