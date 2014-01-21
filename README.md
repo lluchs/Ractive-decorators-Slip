@@ -3,14 +3,15 @@ Ractive.js Slip decorator plugin
 
 *Find more Ractive.js plugins at [ractivejs.org/plugins](http://ractivejs.org/plugins)*
 
-[See the demo here.](TODO)
+[See the demo here.](http://lluchs.github.io/Ractive-decorators-Slip/)
 
 Usage
 -----
 
-Include this file on your page below Ractive, e.g:
+Include this file on your page below Ractive and Slip, e.g:
 
 ```html
+<script src='lib/slip.js'></script>
 <script src='lib/Ractive.js'></script>
 <script src='lib/Ractive-decorators-Slip.js'></script>
 ```
@@ -22,9 +23,7 @@ Or, if you're using a module loader, require this module:
 require( 'Ractive-decorators-Slip' );
 ```
 
-**plugin-specific instructions to go here...**
-
-
+See the demo for usage details.
 
 License
 -------
