@@ -107,7 +107,7 @@
 				throw new Error( errorMessage );
 			}
 
-			sourceArray = sourceKeypath.parent.str
+			sourceArray = sourceKeypath.parent.str;
 			sourceIndex = Number(sourceKeypath.lastKey);
 
 			ractive = storage.root;
