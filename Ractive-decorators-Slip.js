@@ -3,7 +3,7 @@
 	Ractive-decorators-Slip
 	=======================
 
-	Version 0.1.0.
+	Version 0.2.0.
 
 	<< description goes here... >>
 
@@ -101,14 +101,14 @@
 			sourceKeypath = storage.keypath;
 
 			// this decorator only works with array members!
-			lastDotIndex = sourceKeypath.lastIndexOf( '.' );
+			lastDotIndex = sourceKeypath.str.lastIndexOf( '.' );
 
 			if ( lastDotIndex === -1 ) {
-					throw new Error( errorMessage );
+				throw new Error( errorMessage );
 			}
 
-			sourceArray = sourceKeypath.substr( 0, lastDotIndex );
-			sourceIndex = +( sourceKeypath.substring( lastDotIndex + 1 ) );
+			sourceArray = sourceKeypath.parent.str;
+			sourceIndex = Number(sourceKeypath.lastKey);
 
 			ractive = storage.root;
 
